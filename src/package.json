@@ -1,0 +1,22 @@
+{
+  "name": "babygeddon",
+  "version": "1.0.0",
+  "description": "Alexa Skill App to calculate due date of a new addition to the family",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgehjr84/babygeddon.git"
+  },
+  "author": "Jorge Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgehjr84/babygeddon/issues"
+  },
+  "homepage": "https://github.com/jorgehjr84/babygeddon#readme",
+"dependencies": {
+  "alexa-app": "^2.3.4"
+}
+}

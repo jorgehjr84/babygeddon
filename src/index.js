@@ -2,6 +2,8 @@
 module.change_code = 1;
 var Alexa = require('alexa-app');
 var app = new Alexa.app('babygeddon');
+require('datejs');
+
 
 
 app.launch(function(req,res){
@@ -21,15 +23,17 @@ app.intent('AMAZON.HelpIntent',{
 });
 
 //Add Due Date Intent
-app.intent('dueDate',{
+app.intent('dueDate', {
     'slots': {
-        'DUEDATE' : 'AMAZON.DATE'
+        'DATE': 'AMAZON.LITERAL'
     },
-    'utterances': [] 
-},
-    function(req,res){
-       var dueDate = req.slot('DUEDATE');
-       res.say(dueDate).shouldEndSession(false).send();
+    'utterances': ['{my due date is}{-|DATE}']
+    },
+    function (req, res) {
+        var date = Date.parse(req.slot('DATE'));
+        var dateString = req.slot('DATE');
+        var speechOutput = 'Cool I will mark that down ' + dateString + ' as your due date';
+        res.say(speechOutput).shouldEndSession(false).send();
     }
 );
 

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jorgehjr84/babygeddon#readme",
 "dependencies": {
-  "alexa-app": "^2.3.4"
+  "alexa-app": "^2.3.4",
+  "datejs": "^1.0.0-rc3"
 }
 }

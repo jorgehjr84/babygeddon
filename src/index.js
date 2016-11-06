@@ -6,6 +6,7 @@ require('datejs');
 
 
 
+
 app.launch(function(req,res){
     var prompt = "Welcome to babygeddon";
   res.say(prompt).reprompt(prompt).shouldEndSession(false);
@@ -15,7 +16,7 @@ app.launch(function(req,res){
 app.intent('AMAZON.HelpIntent',{   
 },
     function (req, res) {
-        var speechOutput = 'There is no help for you. But I can assist you with finding out how long until captain crazy pants comes. To get started say Alexa, my due date is. Once thats done, you can say things like, Alexa, how long until babygeddon';
+        var speechOutput = 'There is no help for you. But I can assist you with finding out how long until captain crazy pants comes. To get started say Alexa, my due date is , and I will tell you how long you have left ';
         var cardContent = 'To get started say Alexa, my due date is:\n' +
         'Then you can ask things like, "Alexa, how long until babygeddon\n';
         res.card('Babygeddon Help', cardContent);
@@ -25,16 +26,28 @@ app.intent('AMAZON.HelpIntent',{
 //Add Due Date Intent
 app.intent('dueDate', {
     'slots': {
-        'DATE': 'AMAZON.LITERAL'
+        'DATE': 'AMAZON.DATE'
     },
-    'utterances': ['{my due date is}{-|DATE}']
+    'utterances': ['{|My due date is | I am due on| the baby is coming| }{-|DATE}{|is my due date}']
     },
-    function (req, res) {
-        var date = Date.parse(req.slot('DATE'));
-        var dateString = req.slot('DATE');
-        var speechOutput = 'Cool I will mark that down ' + dateString + ' as your due date';
-        res.say(speechOutput).shouldEndSession(false).send();
-    }
-);
+    function (req, res) {             
+        var oneDay = 24*60*60*1000;
+        var today = Date.parse('today');
+        var dueDate = Date.parse(req.slot('DATE'));
+        var daysLeft = Math.round(Math.abs((today.getTime() - dueDate.getTime())/(oneDay)));        
+        var speechOutput2 = 'You have ' + daysLeft + ' days until you are in trouble. Muah hahahaha';
+    
+        res.say(speechOutput2).shouldEndSession(true).send();
+        res.card({
+            'type': 'Standard',
+            'title' : 'Days until babygeddon',
+            'text' : 'you have ' + daysLeft + ' until babygeddon',
+            'image': {
+              'smallImageUrl': 'https://s3.amazonaws.com/alexamedicationcard/stewie2.png',
+              'largeImageUrl': 'https://s3.amazonaws.com/alexamedicationcard/stewie2.png'
+            }
+        });
+    });
+
 
 module.exports = app;

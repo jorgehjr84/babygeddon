@@ -1,6 +1,8 @@
-        // var month;
-        // var day;
-        // var year;
+// var dateString = req.slot('DATE');
+// var month;
+// var day;
+// var year;
+
 //     if(dateString.includes('january')){
 //           month = 'january ';
 //     }else if(dateString.includes('february')){
@@ -105,3 +107,6 @@
 //     }else{
 //           year = '2020';
 //     }
+
+
+//var newDate = month + day + year;

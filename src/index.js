@@ -16,26 +16,12 @@ app.launch(function(req,res){
 app.intent('AMAZON.HelpIntent',{   
 },
     function (req, res) {
-        var speechOutput = 'There is no help for you. But I can assist you with finding out how long until captain crazy pants comes. To get started say Alexa, when is babygeddon. Once thats done, you can tell me your due date, and I will tell you how long you have left until, you know, you are F"d.';
+        var speechOutput = 'There is no help for you. But I can assist you with finding out how long until captain crazy pants comes. To get started say Alexa, my due date is , and I will tell you how long you have left ';
         var cardContent = 'To get started say Alexa, my due date is:\n' +
         'Then you can ask things like, "Alexa, how long until babygeddon\n';
         res.card('Babygeddon Help', cardContent);
         res.say(speechOutput).shouldEndSession(false).send();
 });
-
-
-//Add Due Date Intent
-app.intent('whenIsBabygeddon', {
-    'slots': {
-    },
-    'utterances': ['{how many days until | how long until | when is| how much time until}{babygeddon?}']
-    },
-    function (req, res) {
-        var speechOutput = 'What is your due date';
-        res.say(speechOutput).shouldEndSession(false).send;
-    });
-
-
 
 //Add Due Date Intent
 app.intent('dueDate', {
@@ -51,14 +37,14 @@ app.intent('dueDate', {
         var daysLeft = Math.round(Math.abs((today.getTime() - dueDate.getTime())/(oneDay)));        
         var speechOutput2 = 'You have ' + daysLeft + ' days until you are in trouble. Muah hahahaha';
     
-        res.say(speechOutput2).shouldEndSession(false).send();
+        res.say(speechOutput2).shouldEndSession(true).send();
         res.card({
             'type': 'Standard',
             'title' : 'Days until babygeddon',
             'text' : 'you have ' + daysLeft + ' until babygeddon',
-            'image' : {
-                'smallImageUrl': 'https://s3.amazonaws.com/duedate/stewie2.png',
-                'largeImageUrl': 'https://s3.amazonaws.com/duedate/stewie2.png'
+            'image': {
+              'smallImageUrl': 'https://s3.amazonaws.com/alexamedicationcard/stewie2.png',
+              'largeImageUrl': 'https://s3.amazonaws.com/alexamedicationcard/stewie2.png'
             }
         });
     });
